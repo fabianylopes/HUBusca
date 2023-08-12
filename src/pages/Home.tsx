@@ -1,7 +1,33 @@
-import React from 'react'
+import { useState } from "react";
+import axios from "axios";
+
+import Search from "../components/Search";
+import { UserProps } from "../types/user";
 
 export default function Home() {
+  const [user, setUser] = useState<UserProps | null>(null);
+  
+  async function loadUser(userName: string){
+    const res = await axios.get(`https://api.github.com/users/${userName}`);
+    const data = await res.data;
+
+    const { avatar_url, name, login, location } = data;
+
+    const userData: UserProps = {
+      avatar_url,
+      name,
+      login,
+      location,
+    };
+
+    setUser(userData);
+
+  };
+
   return (
-    <div>Home</div>
+    <div>
+      <Search loadUser={loadUser}/>
+      {user && <p>{user.login}</p>}
+    </div>
   )
 }
