@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Search from "../components/Search";
 import { UserProps } from "../types/user";
+import User from "../components/User";
 
 export default function Home() {
   const [user, setUser] = useState<UserProps | null>(null);
@@ -27,7 +28,7 @@ export default function Home() {
   return (
     <div>
       <Search loadUser={loadUser}/>
-      {user && <p>{user.login}</p>}
+      {user && <User {...user} />}
     </div>
   )
 }
