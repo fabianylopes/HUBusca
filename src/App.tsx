@@ -4,7 +4,7 @@ import './App.css';
 function App() {
 
   return (
-    <div>
+    <div className='container'>
       <h1>HUBusca</h1>
       <Outlet />
     </div>
