@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
-import Search from "../components/Search";
-import { UserProps } from "../types/user";
-import User from "../components/User";
-import Error from "../components/Error";
+import Search from "../../components/Search";
+import { UserProps } from "../../types/user";
+import User from "../../components/User";
+import Error from "../../components/Error";
+import { Container } from "./style";
 
 export default function Home() {
   const [user, setUser] = useState<UserProps | null>(null);
@@ -16,32 +17,35 @@ export default function Home() {
     .then((response) => setUser(response.data))
     .catch(handleError);
    
-   function handleError(){
-     setUser(null);
-     setError(true);
-     return;
+    function handleError(){
+      setUser(null);
+      setError(true);
+      return;
     }
     
     setError(false);
   
-    const { avatar_url, name, login, location } = user;
+    const { id, avatar_url, name, login, location, followers, public_repos } = user;
     
     const userData: UserProps = {
+      id,
       avatar_url,
       name,
       login,
       location,
+      followers,
+      public_repos
     };
 
     setUser(userData);
-
   };
 
+
   return (
-    <div>
+    <Container>
       <Search loadUser={loadUser}/>
       {user && <User {...user} />}
       {error && <Error />}
-    </div>
+    </Container>
   )
 }
