@@ -11,35 +11,36 @@ export default function Home() {
   const [user, setUser] = useState<UserProps | null>(null);
   const [error, setError] = useState(false);
   
-  function loadUser(userName: string){
-  
-   const res = axios.get(`https://api.github.com/users/${userName}`)
-    .then((response) => setUser(response.data))
-    .catch(handleError);
-   
-    function handleError(){
+  async function loadUser(userName: string){
+
+    try {
+      const response = await axios.get(`https://api.github.com/users/${userName}`);
+      const data = response.data;
+      
+      setError(false);
+      
+      const { id, avatar_url, name, login, location, followers, public_repos } = data;
+      
+      const userData: UserProps = {
+        id,
+        avatar_url,
+        name,
+        login,
+        location,
+        followers,
+        public_repos
+      };
+      
+      setUser(userData);
+      return;
+    
+    } catch (error) {
       setUser(null);
       setError(true);
       return;
     }
-    
-    setError(false);
-  
-    const { id, avatar_url, name, login, location, followers, public_repos } = user;
-    
-    const userData: UserProps = {
-      id,
-      avatar_url,
-      name,
-      login,
-      location,
-      followers,
-      public_repos
-    };
 
-    setUser(userData);
   };
-
 
   return (
     <Container>

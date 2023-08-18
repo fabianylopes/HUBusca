@@ -6,9 +6,11 @@ import { MdLocationPin } from "react-icons/md";
 import { Container, Local } from "./style";
 
 export default function User({ avatar_url, name, login, location }: UserProps) {
+
+
   return (
     <Container>
-      <Link to="/">
+      <Link to={`/${login}`}>
         <img src={avatar_url} alt="profile picture" />
       </Link>
       <p>{name}</p>

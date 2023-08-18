@@ -1,11 +1,13 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import './App.css';
 
 function App() {
 
   return (
     <div className='container'>
-      <h1>HUBusca</h1>
+      <Link to="/">
+        <h1>HUBusca</h1>
+      </Link>
       <Outlet />
     </div>
   )
