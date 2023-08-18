@@ -2,7 +2,7 @@ type SearchProps = {
   loadUser: (userName: string) => Promise<void>;
 }
 
-import { useState, KeyboardEvent } from "react";
+import { useState, KeyboardEvent, ChangeEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import { Container, SubContainer, Input, Button } from "./style";
@@ -23,7 +23,7 @@ export default function Search({loadUser}: SearchProps) {
         <Input 
           type="text" 
           placeholder="Digite o nome do usuário" 
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Button onClick={() => loadUser(userName)}>
